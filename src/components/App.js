@@ -9,6 +9,7 @@ class App extends Component {
     password: '',
     password2: '',
     accept: false,
+    correct: false,
 
     errors: {
       username: false,
@@ -49,27 +50,28 @@ class App extends Component {
     let accept = false;
     let correct = false;
 
+    // Validate username
     if (this.state.username.length < 3) {
       username = true;
     }
-
+    // Validate email
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!re.test(String(this.state.email).toLowerCase())) {
       email = true;
     }
-
+    // Validate password
     if (this.state.password.length < 5) {
       password = true;
     }
-
+    // Validate password2
     if (this.state.password2 !== this.state.password) {
       password2 = true;
     }
-
+    // Validate accept
     if (!this.state.accept) {
       accept = true;
     }
-
+    // Validate form
     if (username && email && password && password2 && accept) {
       correct = true;
     }
@@ -79,7 +81,17 @@ class App extends Component {
 
   handleSubmit = e => {
     e.preventDefault()
-    this.validateForm();
+    const validate = this.validateForm();
+
+    this.setState({
+      errors: {
+        username: validate.username,
+        email: validate.email,
+        password: validate.password,
+        password2: validate.password2,
+        accept: validate.accept,
+      }
+    })
   }
 
   render() {
