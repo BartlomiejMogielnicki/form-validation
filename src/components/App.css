@@ -4,5 +4,9 @@ body {
 
 input {
   display: block;
-  margin-bottom: 20px;
+}
+
+.error {
+  color: red;
+  font-size: .8rem;
 }
