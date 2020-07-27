@@ -116,6 +116,16 @@ class App extends Component {
     }
   }
 
+  componentDidUpdate() {
+    if (this.state.confirmMessage) {
+      setTimeout(() => {
+        this.setState({
+          confirmMessage: ''
+        })
+      }, 3000)
+    }
+  }
+
   render() {
     return (
       <div>
