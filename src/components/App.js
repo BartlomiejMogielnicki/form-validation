@@ -11,11 +11,11 @@ class App extends Component {
     accept: false,
 
     errors: {
-      username: true,
-      email: true,
-      password: true,
-      password2: true,
-      accept: true,
+      username: false,
+      email: false,
+      password: false,
+      password2: false,
+      accept: false,
     }
   };
 
@@ -41,9 +41,45 @@ class App extends Component {
     };
   };
 
+  validateForm = () => {
+    let username = false;
+    let email = false;
+    let password = false;
+    let password2 = false;
+    let accept = false;
+    let correct = false;
+
+    if (this.state.username.length < 3) {
+      username = true;
+    }
+
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (!re.test(String(this.state.email).toLowerCase())) {
+      email = true;
+    }
+
+    if (this.state.password.length < 5) {
+      password = true;
+    }
+
+    if (this.state.password2 !== this.state.password) {
+      password2 = true;
+    }
+
+    if (!this.state.accept) {
+      accept = true;
+    }
+
+    if (username && email && password && password2 && accept) {
+      correct = true;
+    }
+
+    return { username, email, password, password2, accept, correct }
+  }
+
   handleSubmit = e => {
     e.preventDefault()
-    console.log('Submit!')
+    this.validateForm();
   }
 
   render() {
