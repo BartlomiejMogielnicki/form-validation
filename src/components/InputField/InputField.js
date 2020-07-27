@@ -7,9 +7,11 @@ const InputField = (props) => {
             <input
                 type={props.type}
                 id={props.name}
+                name={props.name}
                 placeholder={props.placeholder}
-                value={props.value ? props.value : undefined}
-                checked={props.checked ? props.checked : undefined}
+                value={props.value}
+                checked={props.checked}
+                onChange={props.change}
             />
         </label>
     )
